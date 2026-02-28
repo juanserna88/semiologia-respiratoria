@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semiología Respiratoria</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --surface: #111827;
+    --surface2: #1a2233;
+    --border: #1e3a5f;
+    --accent: #38bdf8;
+    --accent2: #0ea5e9;
+    --gold: #f59e0b;
+    --red: #ef4444;
+    --green: #10b981;
+    --purple: #a855f7;
+    --teal: #14b8a6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --card-glow: rgba(56,189,248,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(56,189,248,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-badge {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background: rgba(56,189,248,0.05);
+  }
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #e2e8f0 0%, #38bdf8 50%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .subtitle span { color: var(--gold); }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--accent); border-color: var(--border); }
+  .tab-btn.active {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* MAIN */
+  main { max-width: 1200px; margin: 0 auto; padding: 40px; position: relative; z-index: 1; }
+
+  .section { display: none; animation: fadeIn 0.4s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION TITLE */
+  .section-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .section-icon {
+    font-size: 48px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .section-title p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .cediel-ref {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .card:hover { border-color: var(--accent); background: var(--card-glow); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(56,189,248,0.1); }
+  .card:hover::before { transform: scaleX(1); }
+  .card-icon { font-size: 32px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(56,189,248,0.1);
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 680px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.1);
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { color: #fff; border-color: var(--red); }
+  .modal h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .modal-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .modal-body { font-size: 14px; line-height: 1.8; color: #cbd5e1; }
+  .modal-body h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .modal-body ul { padding-left: 0; list-style: none; }
+  .modal-body ul li {
+    padding: 6px 0 6px 20px;
+    border-bottom: 1px solid rgba(30,58,95,0.5);
+    position: relative;
+    font-size: 13px;
+  }
+  .modal-body ul li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .modal-body .highlight {
+    background: rgba(56,189,248,0.08);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .modal-body .warning {
+    background: rgba(239,68,68,0.08);
+    border-left: 3px solid var(--red);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  /* TABLE */
+  .styledtable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 16px 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .styledtable th {
+    background: rgba(56,189,248,0.1);
+    color: var(--accent);
+    padding: 10px 12px;
+    text-align: left;
+    letter-spacing: 1px;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .styledtable td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(30,58,95,0.4);
+    color: #94a3b8;
+  }
+  .styledtable tr:hover td { background: rgba(56,189,248,0.04); color: var(--text); }
+  .styledtable .up { color: var(--green); }
+  .styledtable .down { color: var(--red); }
+  .styledtable .neutral { color: var(--muted); }
+
+  /* SYNDROME SECTION */
+  .syndrome-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .syndrome-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .syndrome-row:hover { box-shadow: 0 0 0 1px var(--accent); }
+  .syndrome-cell {
+    background: var(--surface2);
+    padding: 16px;
+    font-size: 13px;
+  }
+  .syndrome-cell.name {
+    background: linear-gradient(135deg, var(--surface2), #1a2f4a);
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .syndrome-cell .label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .syndrome-cell .value { font-size: 13px; font-weight: 500; }
+
+  /* AUSCULTATION SECTION */
+  .ausculta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .ausculta-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .ausculta-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .wave-viz {
+    height: 40px;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .wave-bar {
+    width: 4px;
+    border-radius: 2px;
+    background: var(--wave-color, var(--accent));
+    animation: waveAnim 1.5s ease-in-out infinite;
+    opacity: 0.7;
+  }
+  @keyframes waveAnim {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* RED FLAGS */
+  .redflags {
+    width: 100%;
+  }
+  .redflag-card {
+    background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(239,68,68,0.03));
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .redflag-card:hover { border-color: var(--red); box-shadow: 0 4px 24px rgba(239,68,68,0.15); }
+  .redflag-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .redflag-card h3 { font-size: 14px; font-weight: 600; color: #fca5a5; margin-bottom: 6px; }
+  .redflag-card p { font-size: 12px; color: #f87171; line-height: 1.5; }
+  .redflag-card .dx { font-family: 'Montserrat', sans-serif; font-size: 11px; color: var(--red); margin-top: 8px; padding: 4px 8px; background: rgba(239,68,68,0.1); border-radius: 4px; display: inline-block; }
+
+  /* PERCUSSION SECTION */
+  .percusion-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .perc-card {
+    border-radius: 12px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+  }
+  .perc-card:hover { transform: translateY(-4px); }
+  .perc-sound {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .perc-card p { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* ANAMNESIS */
+  .anamnesis-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .anamnesis-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-items: start;
+  }
+  .anamnesis-item:hover { border-color: var(--accent); background: var(--card-glow); }
+  .anamnesis-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .anamnesis-item:hover .anamnesis-num { color: var(--accent); }
+  .anamnesis-content h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .anamnesis-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .anamnesis-content .clues { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .clue {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* HOME SECTION */
+  .home-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+  }
+  .home-hero-text h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .home-hero-text h2 span { color: var(--accent); }
+  .home-hero-text p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+  .lung-svg { display: flex; justify-content: center; }
+  .lung-svg svg { width: 260px; height: 260px; opacity: 0.9; }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .pillar {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .pillar:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .pillar .num { font-family: 'Montserrat', sans-serif; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 8px; }
+  .pillar .name { font-size: 14px; font-weight: 600; color: #fff; }
+  .pillar .emoji { font-size: 28px; margin-bottom: 8px; }
+
+  /* PALPATION SECTION */
+  .palp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .palp-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .palp-card:hover { border-color: var(--teal); box-shadow: 0 4px 24px rgba(20,184,166,0.1); }
+  .palp-card .header-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .palp-card .icon { font-size: 32px; }
+  .palp-card h3 { font-size: 18px; font-weight: 600; color: #fff; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    main { padding: 20px; }
+    header { padding: 40px 20px 30px; }
+    .nav-tabs { padding: 12px 20px; }
+    .home-hero { grid-template-columns: 1fr; }
+    .lung-svg { display: none; }
+    .pillars { grid-template-columns: repeat(2, 1fr); }
+    .syndrome-row { grid-template-columns: 1fr; }
+    .syndrome-cell:first-child { border-radius: 0; }
+    .percusion-items { grid-template-columns: 1fr; }
+    .ausculta-grid { grid-template-columns: 1fr; }
+    .palp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">🫁 Semiología Respiratoria</div>
+  <h1>Semiología<br>Respiratoria</h1>
+
+  <!-- PRESENTATION CARD -->
+  <div style="display:inline-flex;align-items:center;gap:20px;margin-top:28px;background:rgba(17,24,39,0.7);border:1px solid rgba(56,189,248,0.2);border-radius:16px;padding:18px 28px;backdrop-filter:blur(8px);box-shadow:0 0 40px rgba(56,189,248,0.08);">
+    <img src="data:image/jpeg;base64,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" alt="Dr. Juan David Serna Zuluaga" style="width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:center top;border:2.5px solid var(--accent);box-shadow:0 0 18px rgba(56,189,248,0.35);flex-shrink:0;">
+    <div style="text-align:left;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:0.3px;">Dr. Juan David Serna Zuluaga</div>
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;color:var(--accent);font-weight:600;letter-spacing:1px;margin-top:3px;">MD, MSc</div>
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.7;">Magíster en Educación y Transformación Digital<br><span style="color:var(--gold);font-weight:500;">Coordinador · Semiología Médica · Universidad de Manizales</span></div>
+    </div>
+  </div>
+  
+</header>
+
+<!-- NAV TABS -->
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="showSection('home')">🏠 Inicio</button>
+  <button class="tab-btn" onclick="showSection('anamnesis')">📋 Anamnesis</button>
+  <button class="tab-btn" onclick="showSection('inspeccion')">👁️ Inspección</button>
+  <button class="tab-btn" onclick="showSection('palpacion')">🖐️ Palpación</button>
+  <button class="tab-btn" onclick="showSection('percusion')">🔔 Percusión</button>
+  <button class="tab-btn" onclick="showSection('auscultacion')">🎧 Auscultación</button>
+  <button class="tab-btn" onclick="showSection('sindromes')">🧬 Síndromes</button>
+  <button class="tab-btn" onclick="showSection('redflags')">🚨 Red Flags</button>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HOME -->
+  <div id="home" class="section active">
+    <div class="home-hero">
+      <div class="home-hero-text">
+                <p style="font-family:Montserrat,sans-serif;font-size:14px;color:#94a3b8;line-height:1.9;margin-bottom:20px;text-align:center;">
+                  La semiología respiratoria integra la <strong style="color:#e2e8f0;">exploración física estructurada</strong> con la <strong style="color:#e2e8f0;">interpretación sindrómica</strong>. El examen sigue el orden canónico:
+                </p>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;font-family:Montserrat,sans-serif;">
+                  <div style="display:flex;align-items:center;gap:8px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:10px;padding:8px 16px;">
+                    <span style="font-size:16px;">👁️</span>
+                    <span style="font-size:13px;font-weight:700;color:#38bdf8;letter-spacing:0.5px;">Inspección</span>
+                  </div>
+                  <span style="color:#334155;font-size:18px;font-weight:300;">→</span>
+                  <div style="display:flex;align-items:center;gap:8px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25);border-radius:10px;padding:8px 16px;">
+                    <span style="font-size:16px;">🖐️</span>
+                    <span style="font-size:13px;font-weight:700;color:#a855f7;letter-spacing:0.5px;">Palpación</span>
+                  </div>
+                  <span style="color:#334155;font-size:18px;font-weight:300;">→</span>
+                  <div style="display:flex;align-items:center;gap:8px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:8px 16px;">
+                    <span style="font-size:16px;">🔔</span>
+                    <span style="font-size:13px;font-weight:700;color:#10b981;letter-spacing:0.5px;">Percusión</span>
+                  </div>
+                  <span style="color:#334155;font-size:18px;font-weight:300;">→</span>
+                  <div style="display:flex;align-items:center;gap:8px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:8px 16px;">
+                    <span style="font-size:16px;">🎧</span>
+                    <span style="font-size:13px;font-weight:700;color:#f59e0b;letter-spacing:0.5px;">Auscultación</span>
+                  </div>
+                </div>
+                <p style="font-family:Montserrat,sans-serif;font-size:11px;color:#475569;line-height:1.8;text-align:center;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;">
+                  🖱️ Haga clic en los siguientes ítems
+                </p>
+      </div>
+      <div class="lung-svg">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="lg1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.05"/>
+            </radialGradient>
+            <radialGradient id="lg2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.03"/>
+            </radialGradient>
+          </defs>
+          <!-- Trachea -->
+          <rect x="95" y="20" width="10" height="50" rx="5" fill="#38bdf8" opacity="0.6"/>
+          <!-- Bronchi -->
+          <path d="M100 70 Q80 80 60 90" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+          <path d="M100 70 Q120 80 140 90" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+          <!-- Left lung -->
+          <path d="M60 90 Q30 100 25 140 Q22 170 50 175 Q70 178 80 165 Q90 150 85 120 Q80 100 60 90Z" fill="url(#lg1)" stroke="#38bdf8" stroke-width="1.5" opacity="0.8"/>
+          <!-- Right lung -->
+          <path d="M140 90 Q170 100 175 140 Q178 170 150 175 Q130 178 120 165 Q110 150 115 120 Q120 100 140 90Z" fill="url(#lg2)" stroke="#38bdf8" stroke-width="1.5" opacity="0.8"/>
+          <!-- Right fissures -->
+          <path d="M140 105 Q155 130 145 160" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <path d="M138 120 Q160 140 155 165" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+          <!-- Left fissure -->
+          <path d="M60 105 Q45 130 55 160" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <!-- Pulse animation dots -->
+          <circle cx="65" cy="130" r="3" fill="#38bdf8" opacity="0.8">
+            <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="135" cy="130" r="3" fill="#38bdf8" opacity="0.8">
+            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Labels -->
+          <text x="42" y="145" font-family="Montserrat" font-size="7" fill="#38bdf8" opacity="0.7">IZQ</text>
+          <text x="148" y="145" font-family="Montserrat" font-size="7" fill="#38bdf8" opacity="0.7">DER</text>
+          <text x="80" y="17" font-family="Montserrat" font-size="7" fill="#38bdf8" opacity="0.7">TRÁQUEA</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar" onclick="showSection('inspeccion')">
+        <div class="emoji">👁️</div>
+        <div class="num">01</div>
+        <div class="name">Inspección</div>
+      </div>
+      <div class="pillar" onclick="showSection('palpacion')">
+        <div class="emoji">🖐️</div>
+        <div class="num">02</div>
+        <div class="name">Palpación</div>
+      </div>
+      <div class="pillar" onclick="showSection('percusion')">
+        <div class="emoji">🔔</div>
+        <div class="num">03</div>
+        <div class="name">Percusión</div>
+      </div>
+      <div class="pillar" onclick="showSection('auscultacion')">
+        <div class="emoji">🎧</div>
+        <div class="num">04</div>
+        <div class="name">Auscultación</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANAMNESIS -->
+  <div id="anamnesis" class="section">
+    <div class="section-title">
+      <div class="section-icon">📋</div>
+      <div>
+        <h2>Interrogatorio Respiratorio</h2>
+        <p>Síntomas cardinales y claves semiológicas – Anamnesis dirigida</p>
+        <div class="cediel-ref">Semiología Médica · Aparato Respiratorio</div>
+      </div>
+    </div>
+    <!-- TABLA DE SÍNTOMAS CARDINALES -->
+    <div style="margin-bottom: 40px; overflow-x: auto;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:600;">📋 Síntomas Cardinales — Claves Semiológicas</div>
+      <table style="width:100%;border-collapse:collapse;font-family:'Montserrat',sans-serif;font-size:13px;min-width:500px;">
+        <thead>
+          <tr>
+            <th style="background:rgba(56,189,248,0.12);color:var(--accent);padding:14px 18px;text-align:left;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid var(--accent);font-weight:700;width:40%;">Síntoma</th>
+            <th style="background:rgba(56,189,248,0.12);color:var(--accent);padding:14px 18px;text-align:left;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid var(--accent);font-weight:700;">Claves Semiológicas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onmouseover="this.style.background='rgba(56,189,248,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#38bdf8;margin-right:10px;vertical-align:middle;"></span>💨 Disnea</td>
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#94a3b8;">Inicio, progresión, ortopnea, DPN</td>
+          </tr>
+          <tr onmouseover="this.style.background='rgba(56,189,248,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a855f7;margin-right:10px;vertical-align:middle;"></span>🫁 Tos</td>
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#94a3b8;">Seca vs productiva</td>
+          </tr>
+          <tr onmouseover="this.style.background='rgba(56,189,248,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;margin-right:10px;vertical-align:middle;"></span>💧 Expectoración</td>
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#94a3b8;">Color, cantidad, olor</td>
+          </tr>
+          <tr onmouseover="this.style.background='rgba(239,68,68,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:10px;vertical-align:middle;"></span>🩸 Hemoptisis</td>
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#94a3b8;">Estrías vs franca</td>
+          </tr>
+          <tr onmouseover="this.style.background='rgba(56,189,248,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:10px;vertical-align:middle;"></span>⚡ Dolor torácico</td>
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#94a3b8;">Tipo pleurítico</td>
+          </tr>
+          <tr onmouseover="this.style.background='rgba(56,189,248,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#38bdf8;margin-right:10px;vertical-align:middle;"></span>🌬️ Sibilancias</td>
+            <td style="padding:13px 18px;border-bottom:1px solid rgba(30,58,95,0.5);color:#94a3b8;">Episódicas (asma)</td>
+          </tr>
+          <tr onmouseover="this.style.background='rgba(56,189,248,0.06)'" onmouseout="this.style.background='transparent'" style="transition:background 0.2s;">
+            <td style="padding:13px 18px;color:#fff;font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:10px;vertical-align:middle;"></span>🌡️ Fiebre</td>
+            <td style="padding:13px 18px;color:#94a3b8;">Infección</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-weight:600;">🔍 Exploración Detallada por Síntoma</div>
+    <div class="anamnesis-flow" id="anamnesisFlow"></div>
+  </div>
+
+  <!-- INSPECCIÓN -->
+  <div id="inspeccion" class="section">
+    <div class="section-title">
+      <div class="section-icon">👁️</div>
+      <div>
+        <h2>Inspección Torácica</h2>
+        <p>Evaluación visual estática y dinámica del tórax</p>
+        <div class="cediel-ref">Semiología · Inspección estática y dinámica</div>
+      </div>
+    </div>
+    <div id="inspeccionCards"></div>
+  </div>
+
+  <!-- PALPACIÓN -->
+  <div id="palpacion" class="section">
+    <div class="section-title">
+      <div class="section-icon">🖐️</div>
+      <div>
+        <h2>Palpación Torácica</h2>
+        <p>Expansión torácica y vibraciones vocales (frémito táctil)</p>
+        <div class="cediel-ref">Semiología · Palpación</div>
+      </div>
+    </div>
+    <div id="palpacionCards"></div>
+  </div>
+
+  <!-- PERCUSIÓN -->
+  <div id="percusion" class="section">
+    <div class="section-title">
+      <div class="section-icon">🔔</div>
+      <div>
+        <h2>Percusión Pulmonar</h2>
+        <p>Interpretación de los sonidos a la percusión torácica</p>
+        <div class="cediel-ref">Semiología · Percusión</div>
+      </div>
+    </div>
+    <div id="percusionCards" style="width:100%;"></div>
+  </div>
+
+  <!-- AUSCULTACIÓN -->
+  <div id="auscultacion" class="section">
+    <div class="section-title">
+      <div class="section-icon">🎧</div>
+      <div>
+        <h2>Auscultación Pulmonar</h2>
+        <p>Ruidos normales y patológicos — Transmisión vocal</p>
+        <div class="cediel-ref">Semiología · Auscultación</div>
+      </div>
+    </div>
+    <div id="auscultacionCards" style="width:100%;"></div>
+  </div>
+
+  <!-- SÍNDROMES -->
+  <div id="sindromes" class="section">
+    <div class="section-title">
+      <div class="section-icon">🧬</div>
+      <div>
+        <h2>Síndromes Respiratorios</h2>
+        <p>Integración sindrómica de los hallazgos exploratorios</p>
+        <div class="cediel-ref">Semiología · Síndromes Clásicos</div>
+      </div>
+    </div>
+    <div class="syndrome-grid" id="syndromesGrid"></div>
+  </div>
+
+  <!-- RED FLAGS -->
+  <div id="redflags" class="section">
+    <div class="section-title">
+      <div class="section-icon">🚨</div>
+      <div>
+        <h2>Signos de Alarma</h2>
+        <p>Hallazgos que requieren acción diagnóstica inmediata</p>
+        <div class="cediel-ref">Semiología · Signos de Alarma</div>
+      </div>
+    </div>
+    <div id="redflagsGrid" style="width:100%;"></div>
+  </div>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+
+const anamnesisData = [
+  {
+    num: "01",
+    icon: "💨",
+    title: "Disnea",
+    desc: "Sensación subjetiva de dificultad respiratoria. Es el síntoma cardinal del aparato respiratorio.",
+    clues: ["Inicio súbito", "Progresiva", "Ortopnea", "DPN", "Clasificación MRC"],
+    modalTitle: "Disnea – Análisis Semiológico",
+    modalBadge: "Semiología Médica · Síntoma Cardinal",
+    content: `
+      <h4>Clasificación clínica </h4>
+      <ul>
+        <li><strong>Aguda:</strong> TEP, neumotórax espontáneo, edema pulmonar agudo</li>
+        <li><strong>Subaguda:</strong> Neumonía, derrame pleural, exacerbación de EPOC</li>
+        <li><strong>Crónica:</strong> EPOC avanzado, fibrosis pulmonar, cardiopatías</li>
+      </ul>
+      <h4>Preguntas clave en la anamnesis</h4>
+      <ul>
+        <li>¿Inicio súbito o progresivo?</li>
+        <li>¿Se agrava en posición horizontal? → Ortopnea (insuficiencia cardíaca)</li>
+        <li>¿Despierta de noche? → Disnea paroxística nocturna</li>
+        <li>¿Con el ejercicio? → Escala MRC (0-4)</li>
+      </ul>
+      <div class="highlight">Regla clínica: Disnea súbita + dolor pleurítico → pensar en TEP o neumotórax hasta que se demuestre lo contrario.</div>
+      <h4>Escala MRC de Disnea</h4>
+      <table class="styledtable">
+        <tr><th>Grado</th><th>Descripción</th></tr>
+        <tr><td>0</td><td>Solo con ejercicio intenso</td></tr>
+        <tr><td>1</td><td>Al caminar rápido o subir pendientes</td></tr>
+        <tr><td>2</td><td>Camina más lento que personas de su edad</td></tr>
+        <tr><td>3</td><td>Se detiene al caminar 100m</td></tr>
+        <tr><td>4</td><td>No puede salir de casa / mínimos esfuerzos</td></tr>
+      </table>
+    `
+  },
+  {
+    num: "02",
+    icon: "🫁",
+    title: "Tos",
+    desc: "Mecanismo reflejo de defensa de la vía aérea. Puede ser seca (irritativa) o productiva (secretora).",
+    clues: ["Seca vs productiva", "Duración", "Horario", "Desencadenantes", "Emetizante"],
+    modalTitle: "Tos – Análisis Semiológico",
+    modalBadge: "Semiología Médica · Síntoma Cardinal",
+    content: `
+      <h4>Clasificación por duración</h4>
+      <ul>
+        <li><strong>Aguda (&lt;3 semanas):</strong> Infecciones respiratorias, inhalación de irritantes</li>
+        <li><strong>Subaguda (3-8 semanas):</strong> Post-infecciosa, síndrome de goteo posnasal</li>
+        <li><strong>Crónica (&gt;8 semanas):</strong> EPOC, asma, ERGE, fármacos (IECA)</li>
+      </ul>
+      <h4>Características semiológicas</h4>
+      <ul>
+        <li><strong>Seca irritativa:</strong> Pleuritis, traqueitis, inicio de neumonías, IECA</li>
+        <li><strong>Productiva:</strong> Bronquitis crónica, absceso pulmonar, bronquiectasias</li>
+        <li><strong>Perruna o bitonal:</strong> Obstrucción laríngea</li>
+        <li><strong>Quintosa (emetizante):</strong> Tos ferina</li>
+        <li><strong>Matutina:</strong> Bronquitis crónica del fumador</li>
+      </ul>
+      <div class="highlight">IECA (ej. enalapril) causa tos seca en 10-15% de los pacientes — siempre preguntar por medicamentos.</div>
+    `
+  },
+  {
+    num: "03",
+    icon: "💧",
+    title: "Expectoración",
+    desc: "Material expulsado desde la vía aérea inferior. Sus características orientan al diagnóstico etiológico.",
+    clues: ["Color", "Cantidad", "Consistencia", "Olor", "Aspecto"],
+    modalTitle: "Expectoración – Análisis Semiológico",
+    modalBadge: "Semiología Médica · Síntoma Cardinal",
+    content: `
+      <h4>Interpretación del color </h4>
+      <table class="styledtable">
+        <tr><th>Color</th><th>Causa probable</th></tr>
+        <tr><td>Blanquecina / mucosa</td><td>Viral, asma</td></tr>
+        <tr><td>Amarilla / purulenta</td><td>Bacteriana (neutrófilos)</td></tr>
+        <tr><td>Verde</td><td>Pseudomonas, bacterias piógenas crónicas</td></tr>
+        <tr><td>Hemoptoica (con sangre)</td><td>TB, neoplasia, TEP</td></tr>
+        <tr><td>Herrumbrosa (rusty)</td><td>Neumonía neumocócica</td></tr>
+        <tr><td>Achocolatada</td><td>Absceso amebiano</td></tr>
+        <tr><td>Rosada espumosa</td><td>Edema agudo de pulmón</td></tr>
+      </table>
+      <h4>Cantidad</h4>
+      <ul>
+        <li><strong>Escasa:</strong> Traqueobronquitis</li>
+        <li><strong>Abundante (&gt;300ml/día):</strong> Bronquiectasias, absceso pulmonar</li>
+        <li><strong>Hemoptoica masiva (&gt;600ml/día):</strong> Emergencia — TB, neoplasia</li>
+      </ul>
+    `
+  },
+  {
+    num: "04",
+    icon: "🩸",
+    title: "Hemoptisis",
+    desc: "Expectoración de sangre procedente de la vía aérea subglótica. Signo de alarma mayor.",
+    clues: ["Estrías vs franca", "Masiva", "Diferencial hematemesis", "Escala", "Causa"],
+    modalTitle: "Hemoptisis – Signo de Alarma",
+    modalBadge: "Semiología Médica · Signo de Alarma",
+    content: `
+      <div class="warning">⚠️ La hemoptisis masiva (&gt;600ml/24h) es una emergencia que requiere UCI.</div>
+      <h4>Diagnóstico diferencial</h4>
+      <table class="styledtable">
+        <tr><th>Característica</th><th>Hemoptisis</th><th>Hematemesis</th></tr>
+        <tr><td>Color</td><td>Roja brillante</td><td>Rojo oscuro / poso café</td></tr>
+        <tr><td>Mezcla</td><td>Con moco / espumosa</td><td>Con alimentos</td></tr>
+        <tr><td>pH</td><td>Alcalino</td><td>Ácido</td></tr>
+        <tr><td>Acompañada de</td><td>Tos</td><td>Náuseas / vómito</td></tr>
+      </table>
+      <h4>Causas frecuentes </h4>
+      <ul>
+        <li>Tuberculosis pulmonar (causa #1 en países en desarrollo)</li>
+        <li>Carcinoma broncogénico</li>
+        <li>Bronquiectasias</li>
+        <li>Bronquitis aguda / crónica</li>
+        <li>Tromboembolismo pulmonar</li>
+      </ul>
+    `
+  },
+  {
+    num: "05",
+    icon: "⚡",
+    title: "Dolor Torácico",
+    desc: "El dolor pleurítico es el más característico del aparato respiratorio: punzante, se agrava con la inspiración.",
+    clues: ["Tipo pleurítico", "Inspiratorio", "Localizado", "Frote pleural", "Diferenciar cardíaco"],
+    modalTitle: "Dolor Torácico de Origen Respiratorio",
+    modalBadge: "Semiología Médica · Síntoma Cardinal",
+    content: `
+      <h4>Características del dolor pleurítico</h4>
+      <ul>
+        <li>Puntada, punzante, lancinante</li>
+        <li>Se agrava con la inspiración profunda y la tos</li>
+        <li>Mejora con la inmovilización o inclinación hacia el lado afectado</li>
+        <li>Localizado (no irradia como el anginoso)</li>
+      </ul>
+      <h4>Causas </h4>
+      <ul>
+        <li><strong>Pleuritis:</strong> Viral, bacteriana, tuberculosa</li>
+        <li><strong>Neumotórax:</strong> Inicio súbito, jóvenes delgados</li>
+        <li><strong>TEP:</strong> + disnea súbita + taquicardia</li>
+        <li><strong>Costocondritis:</strong> Palpatorio, localizado</li>
+        <li><strong>Herpes zóster:</strong> Dermatomal, vesículas</li>
+      </ul>
+      <div class="highlight">Regla: Dolor que cambia con la respiración → origen pleural/parietal, no miocárdico.</div>
+    `
+  },
+  {
+    num: "06",
+    icon: "🌬️",
+    title: "Sibilancias",
+    desc: "Sonido silbante audible durante la espiración. Signo de obstrucción bronquial difusa o localizada.",
+    clues: ["Episódicas (asma)", "Persistentes (EPOC)", "Monofónicas vs polifónicas", "Nocturnas", "Con ejercicio"],
+    modalTitle: "Sibilancias – Análisis Semiológico",
+    modalBadge: "Semiología Médica · Síntoma-Signo",
+    content: `
+      <h4>Clasificación</h4>
+      <ul>
+        <li><strong>Polifónicas difusas:</strong> Asma bronquial, EPOC</li>
+        <li><strong>Monofónica localizada:</strong> Obstrucción por tumor o cuerpo extraño</li>
+        <li><strong>Estridor:</strong> Obstrucción alta (laringe, tráquea) — inspiratoria</li>
+      </ul>
+      <h4>Asma vs EPOC </h4>
+      <table class="styledtable">
+        <tr><th>Característica</th><th>Asma</th><th>EPOC</th></tr>
+        <tr><td>Edad</td><td>Jóvenes</td><td>&gt;40 años</td></tr>
+        <tr><td>Patrón</td><td>Episódico</td><td>Progresivo</td></tr>
+        <tr><td>Reversibilidad</td><td>Completa</td><td>Parcial</td></tr>
+        <tr><td>Tabaco</td><td>Variable</td><td>Casi siempre</td></tr>
+        <tr><td>Atopia</td><td>Frecuente</td><td>No característica</td></tr>
+      </table>
+    `
+  }
+];
+
+const inspeccionData = [
+  {
+    icon: "📊",
+    title: "Frecuencia Respiratoria",
+    desc: "Parámetro vital fundamental. Normal adulto: 12–20 rpm. Debe contarse sin que el paciente lo note.",
+    tags: ["Normal: 12-20 rpm", "Taquipnea >20", "Bradipnea <12"],
+    style: "--card-accent: #38bdf8",
+    modalTitle: "Frecuencia Respiratoria",
+    content: `
+      <h4>Valores de referencia </h4>
+      <table class="styledtable">
+        <tr><th>Término</th><th>Definición</th><th>Causas</th></tr>
+        <tr><td>Eupnea</td><td>12-20 rpm</td><td>Normal</td></tr>
+        <tr><td>Taquipnea</td><td>&gt;20 rpm</td><td>Fiebre, dolor, hipoxia, ansiedad</td></tr>
+        <tr><td>Bradipnea</td><td>&lt;12 rpm</td><td>Depresión SNC, opioides</td></tr>
+        <tr><td>Apnea</td><td>Ausencia respiración</td><td>Paro respiratorio</td></tr>
+      </table>
+      <div class="highlight">Técnica: Cuente la FR mientras aparenta tomar el pulso — así evita que el paciente modifique conscientemente su respiración.</div>
+    `
+  },
+  {
+    icon: "🌀",
+    title: "Patrones Respiratorios",
+    desc: "La observación del patrón respiratorio aporta información fisiopatológica crucial.",
+    tags: ["Cheyne-Stokes", "Kussmaul", "Biot", "Apnéusico"],
+    style: "--card-accent: #a855f7",
+    modalTitle: "Patrones Respiratorios Patológicos",
+    content: `
+      <h4>Patrones </h4>
+      <ul>
+        <li><strong>Cheyne-Stokes:</strong> Ciclos de aumento y disminución progresiva de la amplitud seguidos de apnea. Causa: insuficiencia cardíaca, lesión cerebral.</li>
+        <li><strong>Kussmaul:</strong> Respiraciones profundas y rápidas sin pausa. Causa: acidosis metabólica (cetoacidosis diabética).</li>
+        <li><strong>Biot:</strong> Respiraciones irregulares en amplitud con apneas. Causa: lesión bulbar, meningitis grave.</li>
+        <li><strong>Apnéusico:</strong> Inspiración prolongada con pausa al final. Causa: lesión pontina.</li>
+        <li><strong>Atáxico:</strong> Totalmente irregular. Causa: lesión bulbar grave.</li>
+      </ul>
+    `
+  },
+  {
+    icon: "🏋️",
+    title: "Uso de Músculos Accesorios",
+    desc: "Signo de aumento del trabajo respiratorio. Incluye esternocleidomastoideo, escalenos y trapecios.",
+    tags: ["Tirajes", "SCM activo", "Distress", "Retracción subcostal"],
+    style: "--card-accent: #f59e0b",
+    modalTitle: "Músculos Accesorios y Tirajes",
+    content: `
+      <h4>Tipos de tirajes </h4>
+      <ul>
+        <li><strong>Supraclavicular:</strong> Obstrucción grave de vía aérea superior</li>
+        <li><strong>Intercostal:</strong> Aumento del trabajo respiratorio por cualquier causa</li>
+        <li><strong>Subcostal:</strong> Hiperinsuflación (EPOC, asma)</li>
+        <li><strong>Supraesternal:</strong> Obstrucción alta (laringotraqueobronquitis)</li>
+      </ul>
+      <div class="highlight">En niños, el tiraje intercostal + estridor inspiratorio = signo de obstrucción grave que requiere manejo urgente.</div>
+    `
+  },
+  {
+    icon: "🧬",
+    title: "Piel",
+    category: "Inspección Estática",
+    accent: "#f97316",
+    border: "rgba(249,115,22,0.3)",
+    desc: "La inspección cutánea aporta información sobre oxigenación, perfusión, estado nutricional y enfermedades sistémicas con repercusión pulmonar.",
+    tags: ["Color", "Turgencia", "Cicatrices", "Signos sistémicos"],
+    modalTitle: "Inspección de la Piel — Hallazgos Respiratorios",
+    content: `
+      <h4>Hallazgos relevantes en patología respiratoria</h4>
+      <table class="styledtable">
+        <tr><th>Hallazgo</th><th>Significado clínico</th></tr>
+        <tr><td>Cianosis central (labios, lengua)</td><td>Hipoxemia arterial — SpO₂ &lt;85%</td></tr>
+        <tr><td>Cianosis periférica (dedos, orejas)</td><td>Bajo gasto / vasoconstricción</td></tr>
+        <tr><td>Palidez</td><td>Anemia — puede agravar hipoxia</td></tr>
+        <tr><td>Eritema nodoso</td><td>Sarcoidosis, TB, micosis</td></tr>
+        <tr><td>Eccema / dermatitis atópica</td><td>Asociación con asma bronquial</td></tr>
+        <tr><td>Cicatrices torácicas</td><td>Cirugías previas, traumatismos, toracostomías</td></tr>
+        <tr><td>Ingurgitación yugular</td><td>Hipertensión pulmonar, neumotórax a tensión, taponamiento</td></tr>
+        <tr><td>Edema periférico</td><td>Cor pulmonale, insuficiencia cardíaca derecha</td></tr>
+      </table>
+      <h4>Signos de alarma en la piel</h4>
+      <ul>
+        <li><strong>Cianosis central:</strong> Siempre patológica — requiere evaluación inmediata</li>
+        <li><strong>Lívedo reticularis:</strong> Vasculitis, embolia grasa, lupus con afectación pulmonar</li>
+        <li><strong>Piel en papel de arroz (atrofia):</strong> Esclerodermia → fibrosis pulmonar asociada</li>
+      </ul>
+      <div class="highlight">La piel es la "ventana" del estado cardiovascular y respiratorio. Su inspección sistemática precede al examen del tórax.</div>
+    `
+  },
+  {
+    icon: "💙",
+    title: "Cianosis",
+    desc: "Coloración azulada de piel y mucosas por aumento de hemoglobina reducida (&gt;5g/dL).",
+    tags: ["Central", "Periférica", "SpO2 <90%", "Labios y lengua"],
+    style: "--card-accent: #3b82f6",
+    modalTitle: "Cianosis",
+    content: `
+      <h4>Tipos de cianosis </h4>
+      <table class="styledtable">
+        <tr><th>Tipo</th><th>Localización</th><th>Mecanismo</th><th>Ejemplo</th></tr>
+        <tr><td>Central</td><td>Labios, lengua, mucosas</td><td>Hipoxemia arterial</td><td>Neumonía grave, EPOC</td></tr>
+        <tr><td>Periférica</td><td>Dedos, orejas, nariz</td><td>Bajo gasto / vasoconstricción</td><td>IC, frío extremo</td></tr>
+      </table>
+      <div class="warning">⚠️ La cianosis central implica saturación de O₂ &lt;85-90%. Es signo de hipoxemia significativa — evaluar AGA urgente.</div>
+    `
+  },
+  {
+    icon: "🫙",
+    title: "Deformidades Torácicas",
+    desc: "Las alteraciones en la forma del tórax pueden reflejar enfermedad pulmonar crónica o musculoesquelética.",
+    tags: ["Tórax en tonel", "Pectus excavatum", "Escoliosis", "Cifosis"],
+    style: "--card-accent: #10b981",
+    modalTitle: "Deformidades Torácicas",
+    content: `
+      <h4>Principales deformidades </h4>
+      <ul>
+        <li><strong>Tórax en tonel (barrel chest):</strong> Diámetro AP aumentado. Clásico del EPOC avanzado con hiperinsuflación.</li>
+        <li><strong>Pectus excavatum:</strong> Esternón deprimido. Puede comprimir estructuras mediastínicas.</li>
+        <li><strong>Pectus carinatum (tórax en quilla):</strong> Esternón prominente. Raro, congénito.</li>
+        <li><strong>Escoliosis:</strong> Desviación lateral de columna. Puede restringir expansión pulmonar.</li>
+        <li><strong>Cifosis:</strong> Curvatura anteroposterior. Reduce capacidad pulmonar en formas graves.</li>
+      </ul>
+    `
+  },
+  {
+    icon: "🔴",
+    title: "Hipocratismo Digital",
+    desc: "Abultamiento bulboso de los dedos con uñas en vidrio de reloj. Signo de hipoxia crónica.",
+    tags: ["Uñas en vidrio de reloj", "Hipoxia crónica", "Neoplasia", "Fibrosis"],
+    style: "--card-accent: #ef4444",
+    modalTitle: "Hipocratismo Digital (Dedos en Palillo de Tambor)",
+    content: `
+      <h4>Fisiopatología </h4>
+      <p style="margin-bottom:12px">Se produce por hipoxia tisular crónica que estimula la proliferación de tejido conjuntivo y vasodilatación local en los pulpejos.</p>
+      <h4>Causas pulmonares</h4>
+      <ul>
+        <li>Carcinoma broncogénico (causa #1 adquirida)</li>
+        <li>Fibrosis pulmonar</li>
+        <li>Bronquiectasias crónicas</li>
+        <li>Absceso pulmonar crónico</li>
+      </ul>
+      <div class="highlight">Signo de Shamroth: Al poner los dedos dorso con dorso, normalmente aparece una ventana en rombo. Con hipocratismo, esta ventana desaparece.</div>
+    `
+  }
+];
+
+const palpacionData = [
+  {
+    icon: "🌀",
+    title: "Elasticidad Torácica",
+    category: "Palpación Estática",
+    accent: "#ef4444",
+    border: "rgba(239,68,68,0.3)",
+    desc: "Evalúa la capacidad de retroceso elástico de la pared torácica. Se explora comprimiendo el tórax en distintos diámetros.",
+    tags: ["Compresión anteroposterior", "Compresión lateral", "Resistencia", "Retroceso elástico"],
+    content: `
+      <h4>Definición</h4>
+      <p style="margin-bottom:12px">La elasticidad torácica es la propiedad de la pared torácica de recuperar su forma original tras ser deformada. Refleja el estado del esqueleto costal, cartílagos y musculatura intercostal.</p>
+      <h4>Técnica</h4>
+      <ul>
+        <li><strong>Compresión anteroposterior:</strong> Una mano en el esternón y otra en la columna vertebral dorsal — comprimir suavemente y valorar la resistencia y el retroceso.</li>
+        <li><strong>Compresión lateral:</strong> Ambas manos sobre las parrillas costales laterales — comprimir simétricamente y comparar.</li>
+        <li>Comparar siempre de forma simétrica entre hemitórax derecho e izquierdo.</li>
+      </ul>
+      <h4>Interpretación</h4>
+      <table class="styledtable">
+        <tr><th>Hallazgo</th><th>Significado</th><th>Ejemplo clínico</th></tr>
+        <tr><td>Elasticidad normal</td><td>Tórax flexible y simétrico</td><td>Adulto joven sano</td></tr>
+        <tr><td>↓ Disminuida difusa</td><td>Rigidez generalizada</td><td>EPOC avanzado, edad avanzada, cifoescoliosis</td></tr>
+        <tr><td>↓ Disminuida unilateral</td><td>Patología ipsilateral</td><td>Derrame pleural, empiema, fibrosis</td></tr>
+        <tr><td>Crepitación ósea</td><td>Fractura costal</td><td>Traumatismo torácico, metástasis</td></tr>
+      </table>
+      <div class="highlight">En el tórax en tonel del EPOC, la elasticidad está globalmente disminuida por la hiperinsuflación crónica y los cambios en los cartílagos costales.</div>
+    `
+  },
+  {
+    icon: "🫁",
+    title: "Expansibilidad Pulmonar",
+    category: "Palpación Dinámica",
+    accent: "#38bdf8",
+    border: "rgba(56,189,248,0.3)",
+    desc: "Evalúa la simetría de movimiento de ambos hemitórax durante la inspiración. Cualquier asimetría es patológica.",
+    tags: ["Simetría", "Separación pulgares", ">5cm normal", "Bilateral vs unilateral"],
+    content: `
+      <h4>Técnica</h4>
+      <ul>
+        <li>Parte anterior: Palmas sobre las parrillas costales inferiores, pulgares en la línea media sobre el apéndice xifoides</li>
+        <li>Parte posterior: Palmas en la región infraescapular, pulgares al nivel de T10</li>
+        <li>Pida al paciente que inspire profundamente y observe la separación de los pulgares</li>
+      </ul>
+      <h4>Interpretación</h4>
+      <ul>
+        <li><strong>Normal:</strong> Expansión simétrica y libre, separación de pulgares &gt;5cm</li>
+        <li><strong>Reducción unilateral:</strong> Patología ipsilateral (derrame, neumotórax, consolidación, atelectasia)</li>
+        <li><strong>Reducción bilateral:</strong> EPOC, fibrosis pulmonar bilateral</li>
+      </ul>
+      <div class="highlight">Regla: La reducción de la expansión SIEMPRE es del lado patológico.</div>
+    `
+  },
+  {
+    icon: "🎵",
+    title: "Frémito Táctil",
+    category: "Palpación Dinámica",
+    accent: "#a855f7",
+    border: "rgba(168,85,247,0.3)",
+    desc: "Transmisión de las vibraciones de la voz a través del parénquima pulmonar hasta la pared torácica. Se palpa con el borde cubital.",
+    tags: ["Vibraciones vocales", "Borde cubital", "↑ Consolidación", "↓ Derrame / Neumotórax"],
+    content: `
+      <h4>Técnica</h4>
+      <ul>
+        <li>Usar el borde cubital de la mano o la palma sobre la superficie torácica</li>
+        <li>Pida al paciente que diga "treinta y tres" o "noventa y nueve" en voz grave</li>
+        <li>Comparar simétricamente de arriba hacia abajo</li>
+      </ul>
+      <h4>Interpretación fisiopatológica</h4>
+      <table class="styledtable">
+        <tr><th>Frémito</th><th>Causa</th><th>Fisiopatología</th></tr>
+        <tr><td class="up">↑ Aumentado</td><td>Consolidación</td><td>Pulmón sólido transmite mejor el sonido</td></tr>
+        <tr><td class="down">↓ Disminuido</td><td>Derrame pleural</td><td>Líquido bloquea transmisión</td></tr>
+        <tr><td class="down">↓ Disminuido</td><td>Neumotórax</td><td>Aire pleural interrumpe vibraciones</td></tr>
+        <tr><td class="down">↓ Disminuido</td><td>Atelectasia</td><td>Obstrucción bronquial</td></tr>
+        <tr><td class="down">↓ Disminuido</td><td>EPOC</td><td>Hiperinsuflación / obstrucción</td></tr>
+      </table>
+    `
+  },
+  {
+    icon: "🖐️",
+    title: "Puntos Dolorosos",
+    category: "Palpación Estática",
+    accent: "#f59e0b",
+    border: "rgba(245,158,11,0.3)",
+    desc: "La palpación sistemática permite identificar zonas de sensibilidad aumentada, crepitación subcutánea o masas palpables.",
+    tags: ["Costillas", "Articulaciones costocondrales", "Enfisema subcutáneo", "Masas"],
+    content: `
+      <h4>Hallazgos a buscar</h4>
+      <ul>
+        <li><strong>Dolor a la palpación costal:</strong> Fractura, periostitis, metástasis</li>
+        <li><strong>Dolor costocondral:</strong> Costocondritis (síndrome de Tietze)</li>
+        <li><strong>Crepitación subcutánea:</strong> Enfisema subcutáneo — neumomediastino, neumotórax</li>
+        <li><strong>Masa palpable:</strong> Tumor de pared, lipoma, absceso de pared</li>
+      </ul>
+      <div class="highlight">Técnica: Palpe metódicamente siguiendo las líneas anatómicas de arriba hacia abajo, comparando simétricamente.</div>
+    `
+  },
+  {
+    icon: "📐",
+    title: "Posición Traqueal",
+    category: "Palpación Estática",
+    accent: "#10b981",
+    border: "rgba(16,185,129,0.3)",
+    desc: "La tráquea debe palparse en la línea media. Su desplazamiento indica patología mediastínica o pleural significativa.",
+    tags: ["Línea media", "Desviación contralateral", "Desviación ipsilateral", "Mediastino"],
+    content: `
+      <h4>Técnica</h4>
+      <ul>
+        <li>Palpe la tráquea en la escotadura supraesternal con el dedo índice</li>
+        <li>Evalúe si está centrada o desplazada</li>
+      </ul>
+      <h4>Interpretación del desplazamiento</h4>
+      <table class="styledtable">
+        <tr><th>Dirección</th><th>Causa</th><th>Mecanismo</th></tr>
+        <tr><td>Contralateral</td><td>Derrame pleural masivo</td><td>El líquido empuja el mediastino</td></tr>
+        <tr><td>Contralateral</td><td>Neumotórax a tensión</td><td>El aire a presión desplaza mediastino</td></tr>
+        <tr><td>Ipsilateral</td><td>Atelectasia masiva</td><td>El colapso jala el mediastino</td></tr>
+        <tr><td>Ipsilateral</td><td>Fibrosis pulmonar</td><td>La retracción fibrótica jala mediastino</td></tr>
+      </table>
+      <div class="warning">⚠️ Desviación traqueal contralateral + hipotensión + ingurgitación yugular = neumotórax a tensión.</div>
+    `
+  }
+];
+
+
+
+const percusionData = [
+  {
+    icon: "🟢",
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.08)",
+    border: "rgba(16,185,129,0.3)",
+    sound: "Sonoro",
+    category: "Sonido Normal",
+    desc: "Sonido normal del pulmón aireado. Resonante, hueco, de tono medio. Sirve como referencia de comparación.",
+    tags: ["Referencia normal", "Parénquima aireado", "Tono medio", "Duración larga"],
+    modalTitle: "Sonido Sonoro — Referencia Normal",
+    content: `
+      <h4>Características</h4>
+      <ul>
+        <li>Sonido normal sobre el parénquima pulmonar aireado</li>
+        <li>Tono medio, duración larga, intensidad moderada</li>
+        <li>Se obtiene en campos pulmonares normales</li>
+      </ul>
+      <div class="highlight">Sirve de referencia para comparar con áreas donde el sonido esté alterado. Siempre percuta simétricamente.</div>
+    `
+  },
+  {
+    icon: "🔵",
+    color: "#38bdf8",
+    bg: "rgba(56,189,248,0.08)",
+    border: "rgba(56,189,248,0.3)",
+    sound: "Hipersonoro",
+    category: "Exceso de Aire",
+    desc: "Sonido más resonante de lo normal. Indica aumento del contenido aéreo libre (pleural) o atrapado (alveolar).",
+    tags: ["Neumotórax", "EPOC / Enfisema", "Asma grave", "Atrapamiento aéreo"],
+    modalTitle: "Hipersonoridad — Exceso de Aire",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">El exceso de aire libre (pleural) o atrapado (alveolar) produce una caja de resonancia mayor que lo normal.</p>
+      <h4>Causas</h4>
+      <ul>
+        <li><strong>Neumotórax:</strong> Aire en espacio pleural. Unilateral, con disminución de murmullo vesicular.</li>
+        <li><strong>Enfisema pulmonar (EPOC):</strong> Destrucción alveolar con atrapamiento de aire. Bilateral.</li>
+        <li><strong>Asma grave:</strong> Atrapamiento aéreo durante la crisis broncoespástica.</li>
+        <li><strong>Quiste aéreo pulmonar:</strong> Localizado en la zona afectada.</li>
+      </ul>
+    `
+  },
+  {
+    icon: "🟡",
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.08)",
+    border: "rgba(245,158,11,0.3)",
+    sound: "Timpánico",
+    category: "Gran Colección Aérea",
+    desc: "Sonido hueco tipo tambor. Indica una gran cantidad de aire libre bajo la pared torácica. Signo de emergencia.",
+    tags: ["Neumotórax a tensión", "Emergencia", "Tono alto", "Gran colección aérea"],
+    modalTitle: "Timpanismo — Gran Colección Aérea",
+    content: `
+      <h4>Características</h4>
+      <ul>
+        <li>Sonido de alta amplitud, tono alto, similar a la percusión gástrica</li>
+        <li>Implica una gran colección aérea a presión</li>
+      </ul>
+      <h4>En tórax</h4>
+      <ul>
+        <li><strong>Neumotórax a tensión:</strong> Emergencia médica. Timpanismo + ausencia de murmullo + desviación traqueal contralateral.</li>
+        <li><strong>Quiste gigante aéreo pulmonar</strong></li>
+      </ul>
+      <div class="warning">⚠️ Timpanismo + desviación traqueal contralateral + hipotensión = neumotórax a tensión → descompresión urgente con aguja.</div>
+    `
+  },
+  {
+    icon: "⚫",
+    color: "#94a3b8",
+    bg: "rgba(100,116,139,0.08)",
+    border: "rgba(100,116,139,0.3)",
+    sound: "Mate",
+    category: "Sólido / Líquido",
+    desc: "Sonido apagado, sin resonancia. Implica tejido sólido o líquido bajo el sitio de percusión en lugar de aire.",
+    tags: ["Derrame pleural", "Consolidación", "Atelectasia", "Curva de Damoiseau"],
+    modalTitle: "Matidez Pulmonar — Sólido o Líquido",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">La matidez se produce cuando la zona percutida no contiene aire, sino líquido o tejido sólido que absorbe las vibraciones.</p>
+      <h4>Causas</h4>
+      <ul>
+        <li><strong>Consolidación (neumonía):</strong> Alvéolos ocupados por exudado. Matidez localizada en el lóbulo afectado.</li>
+        <li><strong>Derrame pleural:</strong> Líquido entre pleuras. Matidez basal con curva de Damoiseau.</li>
+        <li><strong>Atelectasia:</strong> Colapso alveolar. Matidez + desplazamiento mediastínico ipsilateral.</li>
+        <li><strong>Masa pulmonar:</strong> Tumor o absceso pulmonar.</li>
+      </ul>
+      <div class="highlight">Curva de Damoiseau: Límite superior del derrame pleural es cóncavo hacia arriba — signo patognomónico de derrame significativo.</div>
+    `
+  }
+];
+
+
+const auscultacionData = [
+  {
+    type: "normal",
+    title: "🔊 Ruidos Normales",
+    items: [
+      {
+        name: "Laringotraqueal",
+        location: "Laringe y tráquea cervical",
+        ie: "I = E",
+        intensity: "Muy fuerte",
+        waveColor: "#ef4444",
+        heights: [8,12,18,22,26,22,18,12,8,12,18,22,20,15,10,6,8,12,18,22,26,22,18],
+        modalTitle: "Respiración Laringotraqueal",
+        content: `
+          <h4>Características </h4>
+          <ul>
+            <li>Sonido fuerte, áspero, de tono alto</li>
+            <li>Inspiración y espiración casi iguales con pequeña pausa</li>
+            <li>Normal sobre laringe y tráquea cervical</li>
+          </ul>
+          <div class="warning">Patológico si se ausculta en campos pulmonares → indica condensación o consolidación que transmite el sonido traqueal hasta la periferia.</div>
+        `
+      },
+      {
+        name: "Traqueobronquial",
+        location: "Manubrio esternal",
+        ie: "I ≈ E",
+        intensity: "Fuerte",
+        waveColor: "#f97316",
+        heights: [6,10,14,18,22,18,14,10,6,10,14,18,16,12,8,5,6,10,14,18,22,18,14],
+        modalTitle: "Respiración Traqueobronquial",
+        content: `
+          <h4>Características </h4>
+          <ul>
+            <li>Sonido intenso, timbre tubular</li>
+            <li>Inspiración y espiración similares</li>
+            <li>Normal en tráquea intratorácica y manubrio esternal</li>
+          </ul>
+          <div class="highlight">Si aparece en regiones periféricas → proceso patológico que aumenta la densidad del parénquima (consolidación, fibrosis densa).</div>
+        `
+      },
+      {
+        name: "Broncovesicular",
+        location: "Región paraesternal / interescapular T3-T4",
+        ie: "I > E leve",
+        intensity: "Media",
+        waveColor: "#eab308",
+        heights: [4,7,10,14,18,14,10,7,4,6,9,12,10,7,4,3,4,7,10,14,18,14,10],
+        modalTitle: "Respiración Broncovesicular",
+        content: `
+          <h4>Características </h4>
+          <ul>
+            <li>Intensidad intermedia entre traqueal y vesicular</li>
+            <li>Inspiración ligeramente más prolongada que espiración</li>
+            <li>Normal en región paraesternal y espacio interescapular T3-T4</li>
+          </ul>
+          <div class="highlight">Es el sonido de transición fisiológica entre la vía aérea central y el alveolo periférico. Si se amplifica → inicio de proceso inflamatorio.</div>
+        `
+      },
+      {
+        name: "Murmullo Vesicular",
+        location: "Campos pulmonares periféricos, bases, axilas",
+        ie: "I >> E",
+        intensity: "Suave",
+        waveColor: "#10b981",
+        heights: [2,4,6,9,12,9,6,4,2,3,4,5,3,2,1,1,2,4,6,9,12,9,6],
+        modalTitle: "Murmullo Vesicular",
+        content: `
+          <h4>Características </h4>
+          <ul>
+            <li>Sonido suave, de tono bajo, como "brisa"</li>
+            <li>Inspiración mucho más larga y audible que la espiración</li>
+            <li>La espiración es corta y a veces inaudible</li>
+            <li>Generado por el flujo de aire en los alvéolos terminales</li>
+          </ul>
+          <h4>Alteraciones del MV</h4>
+          <ul>
+            <li><strong>↓ Disminuido:</strong> Derrame, neumotórax, engrosamiento pleural, obesidad, EPOC</li>
+            <li><strong>Abolido:</strong> Derrame masivo, neumotórax a tensión, atelectasia masiva</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    type: "pathological",
+    title: "⚠️ Ruidos Patológicos (Agregados)",
+    items: [
+      {
+        name: "Estertores Crepitantes",
+        location: "Bases pulmonares (bilateral en EAP, unilateral en neumonía)",
+        ie: "Fin de inspiración",
+        intensity: "Variable",
+        waveColor: "#a855f7",
+        heights: [2,8,2,10,2,14,2,8,2,12,2,6,2,10,2,8,2,14,2,6,2,10,2],
+        modalTitle: "Estertores Crepitantes",
+        content: `
+          <h4>Características</h4>
+          <ul>
+            <li>Sonido discontinuo, fino, al final de la inspiración</li>
+            <li>Similar al sonido de frotar cabello entre los dedos</li>
+            <li>Generado por la apertura brusca de alvéolos colapsados</li>
+          </ul>
+          <h4>Causas </h4>
+          <ul>
+            <li><strong>Crepitantes finos bibasales:</strong> Fibrosis pulmonar (inspiración tardía), EAP</li>
+            <li><strong>Crepitantes gruesos:</strong> Neumonía lobar (inspiración temprana-media)</li>
+            <li><strong>Bibasales inspiratorios:</strong> Insuficiencia cardíaca</li>
+          </ul>
+          <div class="highlight">En fibrosis pulmonar idiopática: crepitantes "Velcro" bibasales. Patognomónicos junto con hipocratismo digital.</div>
+        `
+      },
+      {
+        name: "Sibilancias",
+        location: "Difusas (asma, EPOC exacerbado) o localizadas (obstrucción focal)",
+        ie: "Espiración (o ambas fases)",
+        intensity: "Variable",
+        waveColor: "#38bdf8",
+        heights: [3,6,9,12,9,6,3,6,9,12,9,6,3,6,9,12,9,6,3,6,9,12,9],
+        modalTitle: "Sibilancias",
+        content: `
+          <h4>Fisiopatología</h4>
+          <p style="margin-bottom:12px">Se producen por la vibración de las paredes bronquiales cuando el flujo de aire atraviesa una vía aérea estrechada.</p>
+          <h4>Tipos</h4>
+          <ul>
+            <li><strong>Espiratorias difusas (polifónicas):</strong> Asma, <strong>EPOC exacerbado</strong></li>
+            <li><strong>Inspiratorias + espiratorias monofónicas:</strong> Obstrucción fija (tumor, cuerpo extraño)</li>
+            <li><strong>Estridor (inspiratorio):</strong> Obstrucción laríngea o traqueal alta</li>
+          </ul>
+          <div class="warning">⚠️ Tórax silente en crisis asmática = ausencia de sibilancias por ventilación mínima = signo de gravedad extrema.</div>
+        `
+      },
+      {
+        name: "Roncus",
+        location: "Variable, cambian con la tos",
+        ie: "Espiración predominante",
+        intensity: "Fuerte, grave",
+        waveColor: "#f59e0b",
+        heights: [5,10,15,20,15,10,5,10,15,20,15,10,5,10,15,20,15,10,5,10,15,20,15],
+        modalTitle: "Roncus",
+        content: `
+          <h4>Características</h4>
+          <ul>
+            <li>Sonido continuo, grave, ronco</li>
+            <li>Generado por secreciones en vía aérea grande o mediana</li>
+            <li>Cambian o desaparecen con la tos (diagnóstico diferencial con sibilancias)</li>
+          </ul>
+          <h4>Causas</h4>
+          <ul>
+            <li>Bronquitis aguda y crónica</li>
+            <li>Bronquiectasias con secreciones</li>
+            <li>Obstrucción parcial de bronquios grandes</li>
+          </ul>
+        `
+      },
+      {
+        name: "Frote Pleural",
+        location: "Base anterolateral, varía con posición",
+        ie: "Inspiración y espiración",
+        intensity: "Variable, superficial",
+        waveColor: "#ef4444",
+        heights: [8,2,10,2,12,2,10,2,8,2,12,2,8,2,10,2,12,2,8,2,10,2,12],
+        modalTitle: "Frote Pleural",
+        content: `
+          <h4>Características </h4>
+          <ul>
+            <li>Sonido áspero, como cuero frotándose</li>
+            <li>Se escucha en inspiración Y espiración (bifásico)</li>
+            <li>Superficial, cambia con la posición</li>
+            <li>Desaparece si se forma derrame abundante</li>
+          </ul>
+          <h4>Causas</h4>
+          <ul>
+            <li>Pleuritis seca (viral, tuberculosa, urémia)</li>
+            <li>Neoplasia pleural</li>
+            <li>Post-toracocentesis</li>
+          </ul>
+          <div class="highlight">Si el paciente contiene la respiración y el frote persiste → origen pericárdico, no pleural.</div>
+        `
+      },
+      {
+        name: "Tempestad de Reamier",
+        location: "Cavidades pulmonares grandes (TB cavitaria, absceso pulmonar)",
+        ie: "Inspiración y espiración",
+        intensity: "Variable, crepitante-gorgoteante",
+        waveColor: "#06b6d4",
+        heights: [3,12,2,18,5,22,2,15,8,20,3,14,6,19,2,16,9,22,3,12,5,18,2],
+        modalTitle: "Tempestad de Reamier",
+        content: `
+          <h4>Definición</h4>
+          <p style="margin-bottom:12px">Ruido patológico cavernoso compuesto por múltiples gorgoteos, chasquidos y crepitantes húmedos generados en grandes cavidades pulmonares que contienen líquido y aire simultáneamente.</p>
+          <h4>Características</h4>
+          <ul>
+            <li>Sonido húmedo, gorgoteante, variado — "como una tormenta dentro del tórax"</li>
+            <li>Mezcla de burbujeo grueso, chasquidos y crepitantes húmedos</li>
+            <li>Se escucha en inspiración y espiración</li>
+            <li>Localizado sobre la cavidad afectada</li>
+            <li>Puede cambiar con los cambios de posición del paciente</li>
+          </ul>
+          <h4>Fisiopatología</h4>
+          <p style="margin-bottom:12px">Se origina cuando el aire atraviesa una gran cavidad que contiene líquido (pus, sangre, secreciones), produciendo turbulencia irregular y burbujeo en la interfase aire-líquido.</p>
+          <h4>Causas principales</h4>
+          <ul>
+            <li><strong>EPOC exacerbado sobreinfectado:</strong> Causa #1 — obstrucción crónica + infección bacteriana generan secreciones abundantes en vías aéreas dilatadas</li>
+            <li><strong>Tuberculosis cavitaria:</strong> Causa clásica — caverna en lóbulo superior con pared gruesa</li>
+            <li><strong>Absceso pulmonar:</strong> Cavidad con nivel hidroaéreo</li>
+            <li><strong>Bronquiectasias saculares con secreciones:</strong> Cavidades dilatadas con contenido</li>
+            <li><strong>Neoplasia cavitada:</strong> Tumor con necrosis central</li>
+          </ul>
+          <div class="warning">⚠️ Tempestad de Reamier + síntomas constitucionales + imagen con caverna en lóbulo superior → sospechar Tuberculosis pulmonar activa.</div>
+        `
+      }
+    ]
+  }
+];
+
+const syndromesData = [
+  {
+    name: "Consolidación",
+    emoji: "🫁",
+    inspeccion: { val: "↓ Expansión", cls: "down" },
+    percusion: { val: "Mate", cls: "neutral" },
+    fremito: { val: "↑ Aumentado", cls: "up" },
+    palpacion: { val: "↑ Frémito", cls: "up" },
+    auscultacion: { val: "Soplo tubárico", cls: "neutral" },
+    color: "#f59e0b",
+    modalTitle: "Síndrome de Consolidación",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">El espacio alveolar es ocupado por exudado inflamatorio (neumonía), células neoplásicas, o sangre. El pulmón se vuelve "sólido", lo que cambia radicalmente la transmisión del sonido.</p>
+      <h4>Hallazgos integrados </h4>
+      <ul>
+        <li><strong>Inspección:</strong> Reducción de la expansión en el hemitórax afectado</li>
+        <li><strong>Palpación:</strong> Frémito aumentado (el tejido sólido transmite mejor las vibraciones)</li>
+        <li><strong>Percusión:</strong> Mate (ausencia de aire alveolar)</li>
+        <li><strong>Auscultación:</strong> Soplo tubárico (el pulmón sólido transmite el ruido traqueal a la periferia), broncofonía, pectoriloquia, egofonía</li>
+      </ul>
+      <h4>Ejemplos clínicos</h4>
+      <ul>
+        <li>Neumonía lobar neumocócica</li>
+        <li>Tuberculosis con condensación</li>
+        <li>Neoplasia con condensación postobstructiva</li>
+        <li>Contusión pulmonar</li>
+      </ul>
+    `
+  },
+  {
+    name: "Derrame Pleural",
+    emoji: "💧",
+    inspeccion: { val: "Asimetría", cls: "neutral" },
+    percusion: { val: "Mate basal", cls: "neutral" },
+    fremito: { val: "↓ Disminuido", cls: "down" },
+    palpacion: { val: "↓ Frémito", cls: "down" },
+    auscultacion: { val: "↓ Murmullo", cls: "down" },
+    color: "#3b82f6",
+    modalTitle: "Síndrome de Derrame Pleural",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">El acúmulo de líquido en el espacio pleural separa la pleura visceral de la parietal, comprime el pulmón subyacente e impide la transmisión de sonido.</p>
+      <h4>Hallazgos integrados </h4>
+      <ul>
+        <li><strong>Inspección:</strong> Hemitórax abombado, reducción de movimiento</li>
+        <li><strong>Palpación:</strong> Frémito disminuido o abolido</li>
+        <li><strong>Percusión:</strong> Matidez con curva de Damoiseau (límite cóncavo hacia arriba)</li>
+        <li><strong>Auscultación:</strong> MV abolido. En el borde superior puede haber egofonía (soplo de derrame)</li>
+      </ul>
+      <h4>Clasificación </h4>
+      <ul>
+        <li><strong>Trasudado:</strong> IC, cirrosis, síndrome nefrótico (proteínas &lt;3g/dL)</li>
+        <li><strong>Exudado:</strong> Neumonía, TB, neoplasia, PE (criterios de Light)</li>
+      </ul>
+    `
+  },
+  {
+    name: "Neumotórax",
+    emoji: "💨",
+    inspeccion: { val: "Asimetría", cls: "neutral" },
+    percusion: { val: "Hipersonoro", cls: "neutral" },
+    fremito: { val: "↓ Disminuido", cls: "down" },
+    palpacion: { val: "↓ Frémito", cls: "down" },
+    auscultacion: { val: "↓ Murmullo", cls: "down" },
+    color: "#38bdf8",
+    modalTitle: "Síndrome de Neumotórax",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">La entrada de aire al espacio pleural colapsa el pulmón ipsilateral. En el neumotórax a tensión, el mecanismo valvular produce colapso contralateral y compromiso hemodinámico.</p>
+      <h4>Hallazgos integrados </h4>
+      <ul>
+        <li><strong>Inspección:</strong> Hemitórax menos móvil, abombado en tensión</li>
+        <li><strong>Palpación:</strong> Frémito abolido</li>
+        <li><strong>Percusión:</strong> Hipersonoridad o timpanismo</li>
+        <li><strong>Auscultación:</strong> Murmullo abolido del lado afectado</li>
+      </ul>
+      <div class="warning">⚠️ Neumotórax a tensión: Timpanismo + desviación traqueal contralateral + hipotensión + taquicardia = descompresión inmediata sin esperar Rx.</div>
+    `
+  },
+  {
+    name: "Atelectasia",
+    emoji: "🫘",
+    inspeccion: { val: "↓ Movilidad", cls: "down" },
+    percusion: { val: "Mate", cls: "neutral" },
+    fremito: { val: "↓ Disminuido", cls: "down" },
+    palpacion: { val: "↓ Frémito", cls: "down" },
+    auscultacion: { val: "↓ Murmullo", cls: "down" },
+    color: "#a855f7",
+    modalTitle: "Síndrome de Atelectasia",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">Colapso alveolar por obstrucción bronquial (atelectasia obstructiva) o por compresión externa. A diferencia de la consolidación, no hay líquido que transmita las vibraciones.</p>
+      <h4>Hallazgos integrados </h4>
+      <ul>
+        <li><strong>Inspección:</strong> Reducción de movilidad ipsilateral. Desplazamiento traqueal hacia el lado afectado (el mediastino es "jalado").</li>
+        <li><strong>Palpación:</strong> Frémito disminuido</li>
+        <li><strong>Percusión:</strong> Mate</li>
+        <li><strong>Auscultación:</strong> Murmullo vesicular disminuido o abolido</li>
+      </ul>
+      <div class="highlight">Clave diferencial: Desplazamiento mediastínico HACIA el lado afectado (atelectasia) vs ALEJÁNDOSE del lado afectado (derrame/neumotórax).</div>
+    `
+  },
+  {
+    name: "EPOC",
+    emoji: "🌀",
+    inspeccion: { val: "Tórax en tonel", cls: "neutral" },
+    percusion: { val: "Hipersonoro", cls: "neutral" },
+    fremito: { val: "↓ Disminuido", cls: "down" },
+    palpacion: { val: "↓ Frémito", cls: "down" },
+    auscultacion: { val: "Sibilancias", cls: "neutral" },
+    color: "#10b981",
+    modalTitle: "Síndrome Obstructivo (EPOC)",
+    content: `
+      <h4>Fisiopatología</h4>
+      <p style="margin-bottom:12px">La destrucción del parénquima alveolar (enfisema) y la inflamación crónica bronquial (bronquitis crónica) producen obstrucción al flujo espiratorio e hiperinsuflación.</p>
+      <h4>Hallazgos integrados </h4>
+      <ul>
+        <li><strong>Inspección:</strong> Tórax en tonel (↑ diámetro AP), taquipnea, uso de músculos accesorios, posición ortopneica, labios fruncidos (breath stacking)</li>
+        <li><strong>Palpación:</strong> Frémito disminuido bilateralmente, expansión reducida</li>
+        <li><strong>Percusión:</strong> Hipersonoridad bilateral, descenso del diafragma</li>
+        <li><strong>Auscultación:</strong> Murmullo vesicular disminuido, espiración prolongada, sibilancias, roncus</li>
+      </ul>
+    `
+  }
+];
+
+const redflagsData = [
+  {
+    icon: "💨",
+    title: "Disnea súbita + Hipersonoridad unilateral",
+    desc: "Inicio abrupto de disnea con disminución del murmullo y timpanismo unilateral.",
+    dx: "→ Neumotórax (a tensión hasta descartar)",
+    modalTitle: "Red Flag: Neumotórax",
+    content: `
+      <div class="warning">⚠️ Emergencia médica si se asocia con desviación traqueal, hipotensión y taquicardia = Neumotórax a tensión.</div>
+      <h4>Acción inmediata</h4>
+      <ul>
+        <li>No esperar Rx si hay compromiso hemodinámico</li>
+        <li>Descompresión con aguja en 2° EIC línea medioclavicular</li>
+        <li>Tubo de toracostomía posterior</li>
+      </ul>
+    `
+  },
+  {
+    icon: "🌡️",
+    title: "Disnea + Matidez basal + Fiebre",
+    desc: "Tríada de síndrome infeccioso más ocupación pleural.",
+    dx: "→ Neumonía con derrame paraneumónico",
+    modalTitle: "Red Flag: Derrame Paraneumónico",
+    content: `
+      <h4>Evaluación obligatoria</h4>
+      <ul>
+        <li>Toracocentesis diagnóstica para clasificar exudado/trasudado</li>
+        <li>Criterios de Light: determinar si es exudado</li>
+        <li>Glucosa, LDH, pH pleural: determinar si requiere drenaje</li>
+      </ul>
+      <div class="highlight">pH &lt;7.2 + glucosa &lt;60 + LDH alta → empiema → drenaje urgente.</div>
+    `
+  },
+  {
+    icon: "🩸",
+    title: "Hemoptisis + Pérdida de peso",
+    desc: "Síntomas B + expectoración hemoptoica en paciente de riesgo.",
+    dx: "→ Sospecha de neoplasia pulmonar (CA broncogénico)",
+    modalTitle: "Red Flag: Sospecha de Neoplasia",
+    content: `
+      <h4>Síntomas de alarma asociados</h4>
+      <ul>
+        <li>Pérdida de peso >10% en 6 meses</li>
+        <li>Tos persistente > 3 semanas en fumador > 40 años</li>
+        <li>Hemoptisis (aunque sea en estrías)</li>
+        <li>Dolor torácico no pleurítico, persistente</li>
+        <li>Disfonía (compromiso N. recurrente)</li>
+      </ul>
+      <h4>Estudio</h4>
+      <ul>
+        <li>Rx tórax inicial</li>
+        <li>TAC tórax contrastado</li>
+        <li>PET-CT + broncoscopía + biopsia</li>
+      </ul>
+    `
+  },
+  {
+    icon: "🔴",
+    title: "Disnea progresiva + Crepitantes bibasales secos",
+    desc: "Progresión lenta de disnea de esfuerzo con crepitantes tipo 'Velcro' en ambas bases.",
+    dx: "→ Fibrosis pulmonar idiopática",
+    modalTitle: "Red Flag: Fibrosis Pulmonar",
+    content: `
+      <h4>Características del síndrome </h4>
+      <ul>
+        <li>Crepitantes bibasales finos, secos, tipo "Velcro" al final de la inspiración</li>
+        <li>Hipocratismo digital progresivo</li>
+        <li>Disnea de esfuerzo progresiva sin respuesta a broncodilatadores</li>
+        <li>Sin fiebre (salvo agudización)</li>
+      </ul>
+      <h4>Estudio</h4>
+      <ul>
+        <li>TACAR de tórax: patrón UIP (panal de abeja + bronquiectasias por tracción)</li>
+        <li>Pruebas de función pulmonar: patrón restrictivo</li>
+      </ul>
+    `
+  },
+  {
+    icon: "⚡",
+    title: "Disnea súbita + Taquicardia + Dolor pleurítico",
+    desc: "Tríada clásica de presentación del tromboembolismo pulmonar.",
+    dx: "→ TEP hasta que se demuestre lo contrario",
+    modalTitle: "Red Flag: Tromboembolismo Pulmonar",
+    content: `
+      <h4>Tríada clásica </h4>
+      <ul>
+        <li>Disnea súbita inexplicada</li>
+        <li>Dolor pleurítico (infarto pulmonar)</li>
+        <li>Hemoptisis (en el 30%)</li>
+      </ul>
+      <h4>Escala de Wells</h4>
+      <ul>
+        <li>Probabilidad clínica baja, media o alta</li>
+        <li>D-dímero en baja probabilidad</li>
+        <li>AngioTAC pulmonar en probabilidad alta o D-dímero positivo</li>
+      </ul>
+      <div class="warning">⚠️ El 70% de TEPs no tienen todos los síntomas clásicos. Ante cualquier disnea inexplicada, calcule la probabilidad con Wells.</div>
+    `
+  },
+  {
+    icon: "🔵",
+    title: "Cianosis central + Taquipnea + Saturación baja",
+    desc: "Triada de insuficiencia respiratoria aguda.",
+    dx: "→ Insuficiencia respiratoria aguda — AGA urgente",
+    modalTitle: "Red Flag: Insuficiencia Respiratoria Aguda",
+    content: `
+      <h4>Criterios diagnósticos</h4>
+      <ul>
+        <li>PaO₂ &lt;60mmHg en aire ambiente (hipoxémica, tipo I)</li>
+        <li>PaCO₂ &gt;50mmHg (hipercápnica, tipo II)</li>
+      </ul>
+      <h4>Signos clínicos de alarma</h4>
+      <ul>
+        <li>FR &gt;30 rpm</li>
+        <li>SpO₂ &lt;90% sin O₂ suplementario</li>
+        <li>Cianosis central</li>
+        <li>Uso de músculos accesorios</li>
+        <li>Alteración del estado mental</li>
+      </ul>
+    `
+  }
+];
+
+// ─────────────────────────────────────────────
+// RENDER FUNCTIONS
+// ─────────────────────────────────────────────
+
+function renderAnamnesis() {
+  const container = document.getElementById('anamnesisFlow');
+
+  const group1 = anamnesisData.slice(0, 3);
+  const group2 = anamnesisData.slice(3);
+
+  const accentColors = ['#38bdf8','#a855f7','#10b981','#ef4444','#f59e0b','#38bdf8'];
+  const borderColors = ['rgba(56,189,248,0.3)','rgba(168,85,247,0.3)','rgba(16,185,129,0.3)','rgba(239,68,68,0.3)','rgba(245,158,11,0.3)','rgba(56,189,248,0.3)'];
+
+  function buildCard(item, idx) {
+    const ac = accentColors[idx];
+    const bc = borderColors[idx];
+    const cardId = 'acard-' + idx;
+    return `
+      <div id="${cardId}" data-idx="${idx}" class="acard"
+        style="background:var(--surface2);border:1px solid ${bc};border-radius:14px;padding:22px 20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${ac};opacity:0.8;border-radius:14px 14px 0 0;"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <div style="font-size:28px;line-height:1;">${item.icon}</div>
+          <div>
+            <div style="font-family:Montserrat,sans-serif;font-size:15px;font-weight:700;color:#fff;">${item.title}</div>
+            <div style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:${ac};margin-top:2px;">Síntoma cardinal · 0${idx+1}</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#94a3b8;line-height:1.7;margin-bottom:14px;font-family:Montserrat,sans-serif;">${item.desc}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+          ${item.clues.map(c => `<span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid ${bc};color:${ac};background:rgba(0,0,0,0.2);">${c}</span>`).join('')}
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-family:Montserrat,sans-serif;font-size:10px;color:${ac};letter-spacing:1px;text-transform:uppercase;font-weight:600;">
+          <span>Ver detalle</span><span style="font-size:12px;">→</span>
+        </div>
+      </div>`;
+  }
+
+  const gridStyle = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;';
+
+  container.innerHTML = `
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#38bdf8;margin-bottom:12px;font-weight:700;">🫁 Síntomas Principales</div>
+    <div style="${gridStyle}">${group1.map((item,i) => buildCard(item,i)).join('')}</div>
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#ef4444;margin:8px 0 12px;font-weight:700;">⚠️ Signos de Alarma y Diferenciación</div>
+    <div style="${gridStyle}">${group2.map((item,i) => buildCard(item,i+3)).join('')}</div>
+  `;
+
+  // Attach events cleanly after render
+  const allData = [...group1, ...group2];
+  container.querySelectorAll('.acard').forEach((card) => {
+    const i = parseInt(card.dataset.idx);
+    const item = allData[i];
+    const ac = accentColors[i];
+    const bc = borderColors[i];
+    card.addEventListener('click', () => openModal(item.modalTitle, 'Semiología Médica · Anamnesis', item.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = ac;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 8px 28px ' + bc;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = bc;
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+
+function renderInspeccion() {
+  const container = document.getElementById('inspeccionCards');
+
+  // Group 1: Parámetros vitales y dinámicos (inspección estática/dinámica)
+  const group1 = inspeccionData.slice(0, 3); // FR, Patrones, Músculos accesorios
+  // Group 2: Signos clínicos externos
+  const group2 = inspeccionData.slice(3);    // Cianosis, Deformidades, Hipocratismo
+
+  const accentColors = ['#38bdf8','#a855f7','#f59e0b','#f97316','#3b82f6','#10b981','#ef4444'];
+  const borderColors = [
+    'rgba(56,189,248,0.3)','rgba(168,85,247,0.3)','rgba(245,158,11,0.3)',
+    'rgba(249,115,22,0.3)','rgba(59,130,246,0.3)','rgba(16,185,129,0.3)','rgba(239,68,68,0.3)'
+  ];
+  const categories = [
+    'Inspección Dinámica','Inspección Dinámica','Inspección Dinámica',
+    'Inspección Estática','Inspección Estática','Inspección Estática','Inspección Estática'
+  ];
+
+  function buildCard(item, idx) {
+    const ac = accentColors[idx];
+    const bc = borderColors[idx];
+    const cat = categories[idx];
+    const cardId = 'icard-' + idx;
+    return `
+      <div id="${cardId}" data-idx="${idx}" class="icard"
+        style="background:var(--surface2);border:1px solid ${bc};border-radius:14px;padding:22px 20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${ac};opacity:0.85;border-radius:14px 14px 0 0;"></div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;">
+          <div style="font-size:30px;line-height:1;">${item.icon}</div>
+          <span style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${ac};background:rgba(0,0,0,0.25);border:1px solid ${bc};padding:3px 8px;border-radius:20px;">${cat}</span>
+        </div>
+        <div style="font-family:Montserrat,sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;">${item.title}</div>
+        <p style="font-size:12px;color:#94a3b8;line-height:1.7;margin-bottom:14px;font-family:Montserrat,sans-serif;">${item.desc}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+          ${item.tags.map(t => `<span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid ${bc};color:${ac};background:rgba(0,0,0,0.2);">${t}</span>`).join('')}
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-family:Montserrat,sans-serif;font-size:10px;color:${ac};letter-spacing:1px;text-transform:uppercase;font-weight:600;">
+          <span>Ver detalle</span><span style="font-size:12px;">→</span>
+        </div>
+      </div>`;
+  }
+
+  const gridStyle = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;';
+  const grid4 = 'display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;';
+
+  container.innerHTML = `
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#10b981;margin-bottom:12px;font-weight:700;">
+      🔍 Inspección Estática — Signos Clínicos Externos
+    </div>
+    <div style="${grid4}">${group2.map((item,i) => buildCard(item,i+3)).join('')}</div>
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#38bdf8;margin:8px 0 12px;font-weight:700;">
+      📊 Inspección Dinámica — Parámetros Funcionales
+    </div>
+    <div style="${gridStyle}">${group1.map((item,i) => buildCard(item,i)).join('')}</div>
+  `;
+
+  const allData = [...group1, ...group2];
+  container.querySelectorAll('.icard').forEach((card) => {
+    const i = parseInt(card.dataset.idx);
+    const item = allData[i];
+    const ac = accentColors[i];
+    const bc = borderColors[i];
+    card.addEventListener('click', () => openModal(item.modalTitle, 'Semiología Médica · Inspección', item.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = ac;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 8px 28px ' + bc;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = bc;
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+
+function renderPalpacion() {
+  const container = document.getElementById('palpacionCards');
+
+  const group1 = palpacionData.slice(0, 2); // Dinámica: Expansibilidad + Frémito
+  const group2 = palpacionData.slice(2);    // Estática: Puntos, Tráquea, Elasticidad
+
+  function buildCard(item, idx) {
+    const cardId = 'pcard-' + idx;
+    return `
+      <div id="${cardId}" data-idx="${idx}" class="pcard"
+        style="background:var(--surface2);border:1px solid ${item.border};border-radius:14px;padding:22px 20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${item.accent};opacity:0.85;border-radius:14px 14px 0 0;"></div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;">
+          <div style="font-size:30px;line-height:1;">${item.icon}</div>
+          <span style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${item.accent};background:rgba(0,0,0,0.25);border:1px solid ${item.border};padding:3px 8px;border-radius:20px;">${item.category}</span>
+        </div>
+        <div style="font-family:Montserrat,sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;">${item.title}</div>
+        <p style="font-size:12px;color:#94a3b8;line-height:1.7;margin-bottom:14px;font-family:Montserrat,sans-serif;">${item.desc}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+          ${item.tags.map(t => `<span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid ${item.border};color:${item.accent};background:rgba(0,0,0,0.2);">${t}</span>`).join('')}
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-family:Montserrat,sans-serif;font-size:10px;color:${item.accent};letter-spacing:1px;text-transform:uppercase;font-weight:600;">
+          <span>Ver detalle</span><span style="font-size:12px;">→</span>
+        </div>
+      </div>`;
+  }
+
+  const grid2 = 'display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;';
+  const grid3 = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;';
+
+  container.innerHTML = `
+    <div style="${grid2}">${group1.map((item,i) => buildCard(item,i)).join('')}</div>
+    <div style="${grid3};margin-top:16px;">${group2.map((item,i) => buildCard(item,i+2)).join('')}</div>
+  `;
+
+  container.querySelectorAll('.pcard').forEach((card) => {
+    const i = parseInt(card.dataset.idx);
+    const item = palpacionData[i];
+    card.addEventListener('click', () => openModal(item.title, 'Semiología Médica · Palpación', item.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = item.accent;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 8px 28px ' + item.border;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = item.border;
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+
+function renderPercusion() {
+  const container = document.getElementById('percusionCards');
+
+  function buildCard(item, idx) {
+    const cardId = 'pecard-' + idx;
+    return `
+      <div id="${cardId}" data-idx="${idx}" class="pecard"
+        style="background:${item.bg};border:2px solid ${item.border};border-radius:16px;padding:24px 28px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:0;">
+        <!-- accent bar top -->
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:${item.color};border-radius:16px 16px 0 0;"></div>
+        <!-- header: icon + badge in one row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;margin-top:4px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="font-size:26px;line-height:1;">${item.icon}</div>
+            <div style="font-family:Montserrat,sans-serif;font-size:22px;font-weight:900;color:${item.color};letter-spacing:0.5px;">${item.sound}</div>
+          </div>
+          <span style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${item.color};background:rgba(0,0,0,0.3);border:1px solid ${item.border};padding:4px 10px;border-radius:20px;white-space:nowrap;">${item.category}</span>
+        </div>
+        <!-- description -->
+        <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin-bottom:16px;font-family:Montserrat,sans-serif;">${item.desc}</p>
+        <!-- chips row -->
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;">
+          ${item.tags.map(t => `<span style="font-family:Montserrat,sans-serif;font-size:10px;padding:4px 11px;border-radius:20px;border:1px solid ${item.border};color:${item.color};background:rgba(0,0,0,0.2);white-space:nowrap;">${t}</span>`).join('')}
+        </div>
+        <!-- ver detalle -->
+        <div style="display:flex;align-items:center;gap:6px;font-family:Montserrat,sans-serif;font-size:10px;color:${item.color};letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-top:auto;">
+          <span>Ver detalle</span><span style="font-size:13px;">→</span>
+        </div>
+      </div>`;
+  }
+
+  // 2x2 grid - one row per group
+  const grid2 = 'display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:20px;';
+
+  container.innerHTML = `
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#10b981;margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
+      Sonidos con Aire Normal o Aumentado
+    </div>
+    <div style="${grid2}">
+      ${percusionData.slice(0,2).map((item,i) => buildCard(item,i)).join('')}
+    </div>
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#94a3b8;margin:4px 0 14px;font-weight:700;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;"></span>
+      Sonidos Patológicos — Sólido, Líquido o Gran Colección Aérea
+    </div>
+    <div style="${grid2}">
+      ${percusionData.slice(2).map((item,i) => buildCard(item,i+2)).join('')}
+    </div>
+  `;
+
+  container.querySelectorAll('.pecard').forEach((card) => {
+    const i = parseInt(card.dataset.idx);
+    const item = percusionData[i];
+    card.addEventListener('click', () => openModal(item.modalTitle, 'Semiología Médica · Percusión', item.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = item.color;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 10px 32px ' + item.border;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = item.border;
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+
+function renderAuscultacion() {
+  const container = document.getElementById('auscultacionCards');
+
+  const normalSounds  = auscultacionData[0].items;   // 4 ruidos normales
+  const pathoSounds   = auscultacionData[1].items;   // 4 ruidos patológicos
+
+  const pathoIcons = ['💜','🌀','🟡','🔴','🌊'];
+
+  function buildWave(item) {
+    return item.heights.map((h, i) =>
+      `<div style="width:3px;height:${h}px;background:${item.waveColor};border-radius:3px;opacity:0.85;animation:waveAnim 1.2s ease-in-out ${(i*0.07).toFixed(2)}s infinite alternate;flex-shrink:0;"></div>`
+    ).join('');
+  }
+
+  function buildNormalCard(item, idx) {
+    const cardId = 'ncard-' + idx;
+    return `
+      <div id="${cardId}" data-group="normal" data-idx="${idx}" class="aucard"
+        style="background:var(--surface2);border:1px solid rgba(${hexToRgb(item.waveColor)},0.25);border-radius:14px;padding:20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${item.waveColor};border-radius:14px 14px 0 0;opacity:0.9;"></div>
+        <!-- badge -->
+        <div style="margin-bottom:12px;margin-top:4px;">
+          <span style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${item.waveColor};background:rgba(0,0,0,0.3);border:1px solid rgba(${hexToRgb(item.waveColor)},0.3);padding:3px 9px;border-radius:20px;">Ruido Normal</span>
+        </div>
+        <!-- name -->
+        <div style="font-family:Montserrat,sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;">${item.name}</div>
+        <!-- location -->
+        <div style="font-family:Montserrat,sans-serif;font-size:10px;color:#64748b;margin-bottom:10px;line-height:1.5;">${item.location}</div>
+        <!-- I:E chip -->
+        <div style="margin-bottom:12px;">
+          <span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid rgba(${hexToRgb(item.waveColor)},0.3);color:${item.waveColor};background:rgba(0,0,0,0.2);">I:E ${item.ie}</span>
+          <span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,0.1);color:#64748b;background:rgba(0,0,0,0.2);margin-left:6px;">${item.intensity}</span>
+        </div>
+        <!-- wave -->
+        <div style="display:flex;align-items:center;gap:2px;height:30px;margin-bottom:12px;overflow:hidden;">
+          ${buildWave(item)}
+        </div>
+        <!-- ver detalle -->
+        <div style="display:flex;align-items:center;gap:5px;font-family:Montserrat,sans-serif;font-size:10px;color:${item.waveColor};letter-spacing:1px;text-transform:uppercase;font-weight:700;">
+          <span>Ver detalle</span><span>→</span>
+        </div>
+      </div>`;
+  }
+
+  function buildPathoCard(item, idx) {
+    const cardId = 'pcard2-' + idx;
+    const icon = pathoIcons[idx];
+    return `
+      <div id="${cardId}" data-group="patho" data-idx="${idx}" class="aucard"
+        style="background:var(--surface2);border:1px solid rgba(${hexToRgb(item.waveColor)},0.25);border-radius:14px;padding:20px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${item.waveColor};border-radius:14px 14px 0 0;opacity:0.9;"></div>
+        <!-- header row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:4px;">
+          <div style="font-size:24px;line-height:1;">${icon}</div>
+          <span style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${item.waveColor};background:rgba(0,0,0,0.3);border:1px solid rgba(${hexToRgb(item.waveColor)},0.3);padding:3px 9px;border-radius:20px;">Ruido Patológico</span>
+        </div>
+        <!-- name -->
+        <div style="font-family:Montserrat,sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;">${item.name}</div>
+        <!-- location -->
+        <div style="font-family:Montserrat,sans-serif;font-size:10px;color:#64748b;margin-bottom:10px;line-height:1.5;">${item.location}</div>
+        <!-- I:E + fase chip -->
+        <div style="margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid rgba(${hexToRgb(item.waveColor)},0.3);color:${item.waveColor};background:rgba(0,0,0,0.2);">${item.ie}</span>
+          <span style="font-family:Montserrat,sans-serif;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,0.1);color:#64748b;background:rgba(0,0,0,0.2);">${item.intensity}</span>
+        </div>
+        <!-- wave discontinuo / irregular -->
+        <div style="display:flex;align-items:center;gap:2px;height:30px;margin-bottom:12px;overflow:hidden;">
+          ${buildWave(item)}
+        </div>
+        <!-- ver detalle -->
+        <div style="display:flex;align-items:center;gap:5px;font-family:Montserrat,sans-serif;font-size:10px;color:${item.waveColor};letter-spacing:1px;text-transform:uppercase;font-weight:700;">
+          <span>Ver detalle</span><span>→</span>
+        </div>
+      </div>`;
+  }
+
+  const grid4 = 'display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;';
+  const grid2 = 'display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px;';
+  const grid3 = 'display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;';
+
+  container.innerHTML = `
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#10b981;margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
+      Ruidos Respiratorios Normales — De Central a Periférico
+    </div>
+    <div style="${grid4}">
+      ${normalSounds.map((item,i) => buildNormalCard(item,i)).join('')}
+    </div>
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#ef4444;margin:4px 0 14px;font-weight:700;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;"></span>
+      Ruidos Patológicos (Agregados) — Interpretación Clínica
+    </div>
+    <div style="${grid3}">
+      ${pathoSounds.slice(0,3).map((item,i) => buildPathoCard(item,i)).join('')}
+    </div>
+    <div style="${grid2}">
+      ${pathoSounds.slice(3).map((item,i) => buildPathoCard(item,i+3)).join('')}
+    </div>
+    <style>
+      @media(max-width:900px){
+        #auscultacionCards [style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important;}
+        #auscultacionCards [style*="repeat(2,1fr)"]{grid-template-columns:1fr!important;}
+      }
+    </style>
+  `;
+
+  // Attach events
+  container.querySelectorAll('.aucard').forEach((card) => {
+    const group = card.dataset.group;
+    const i = parseInt(card.dataset.idx);
+    const item = group === 'normal' ? normalSounds[i] : pathoSounds[i];
+    card.addEventListener('click', () => openModal(item.name, 'Semiología Médica · Auscultación', item.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = item.waveColor;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 8px 28px rgba(' + hexToRgb(item.waveColor) + ',0.25)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = 'rgba(' + hexToRgb(item.waveColor) + ',0.25)';
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+// Helper: convert hex to r,g,b string
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return r+','+g+','+b;
+}
+
+
+function renderSyndromes() {
+  const container = document.getElementById('syndromesGrid');
+
+  const cols = [
+    { key: 'inspeccion',  label: '👁️ Inspección',  color: '#38bdf8' },
+    { key: 'palpacion',   label: '🖐️ Palpación',   color: '#a855f7' },
+    { key: 'percusion',   label: '🔔 Percusión',    color: '#10b981' },
+    { key: 'fremito',     label: '🎵 Frémito',      color: '#f59e0b' },
+    { key: 'auscultacion',label: '🎧 Auscultación', color: '#ef4444' }
+  ];
+
+  function valClass(cls) {
+    if (cls === 'up')   return 'color:#10b981;font-weight:700;';
+    if (cls === 'down') return 'color:#ef4444;font-weight:700;';
+    return 'color:#94a3b8;font-weight:600;';
+  }
+
+  function buildSyndromeCard(s, idx) {
+    const id = 'scard-' + idx;
+    return `
+      <div id="${id}" data-idx="${idx}" class="scard"
+        style="background:var(--surface2);border:1px solid rgba(${hexToRgb(s.color)},0.2);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.3s;">
+        <!-- Header -->
+        <div style="background:rgba(${hexToRgb(s.color)},0.08);border-bottom:1px solid rgba(${hexToRgb(s.color)},0.2);padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <span style="font-size:32px;line-height:1;">${s.emoji}</span>
+          <div>
+            <div style="font-family:Montserrat,sans-serif;font-size:16px;font-weight:800;color:#fff;letter-spacing:0.3px;">${s.name}</div>
+            <div style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(${hexToRgb(s.color)},1);margin-top:3px;">Síndrome Respiratorio · Ver detalle →</div>
+          </div>
+          <div style="margin-left:auto;width:10px;height:10px;border-radius:50%;background:${s.color};box-shadow:0 0 8px ${s.color};flex-shrink:0;"></div>
+        </div>
+        <!-- Grid of findings -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.04);">
+          ${cols.map(col => {
+            const field = s[col.key] || { val: '—', cls: 'neutral' };
+            return `
+              <div style="background:var(--surface2);padding:12px 16px;">
+                <div style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${col.color};margin-bottom:5px;font-weight:600;">${col.label}</div>
+                <div style="font-family:Montserrat,sans-serif;font-size:12px;${valClass(field.cls)}">${field.val}</div>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }
+
+  // 3 + 2 layout
+  const grid3 = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;';
+  const grid2 = 'display:grid;grid-template-columns:repeat(2,1fr);gap:16px;';
+
+  container.innerHTML = `
+    <div style="${grid3}">
+      ${syndromesData.slice(0,3).map((s,i) => buildSyndromeCard(s,i)).join('')}
+    </div>
+    <div style="${grid2}">
+      ${syndromesData.slice(3).map((s,i) => buildSyndromeCard(s,i+3)).join('')}
+    </div>
+    <style>
+      @media(max-width:900px){
+        #syndromesGrid [style*="repeat(3,1fr)"]{grid-template-columns:1fr!important;}
+        #syndromesGrid [style*="repeat(2,1fr)"]{grid-template-columns:1fr!important;}
+      }
+    </style>
+  `;
+
+  container.querySelectorAll('.scard').forEach(card => {
+    const i = parseInt(card.dataset.idx);
+    const s = syndromesData[i];
+    card.addEventListener('click', () => openModal(s.modalTitle, 'Semiología Médica · Síndromes', s.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = s.color;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 10px 32px rgba(' + hexToRgb(s.color) + ',0.2)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = 'rgba(' + hexToRgb(s.color) + ',0.2)';
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+
+function renderRedflags() {
+  const container = document.getElementById('redflagsGrid');
+
+  const meta = [
+    { ac: '#ef4444', bc: 'rgba(239,68,68,0.25)', badge: '🚨 Emergencia' },
+    { ac: '#f59e0b', bc: 'rgba(245,158,11,0.25)', badge: '⚠️ Urgente' },
+    { ac: '#ef4444', bc: 'rgba(239,68,68,0.25)', badge: '🚨 Emergencia' },
+    { ac: '#a855f7', bc: 'rgba(168,85,247,0.25)', badge: '📋 Vigilancia' },
+    { ac: '#ef4444', bc: 'rgba(239,68,68,0.25)', badge: '🚨 Emergencia' },
+    { ac: '#ef4444', bc: 'rgba(239,68,68,0.25)', badge: '🚨 Emergencia' }
+  ];
+
+  function buildCard(rf, idx) {
+    const { ac, bc, badge } = meta[idx] || meta[0];
+    return `
+      <div data-idx="${idx}" class="rfcard"
+        style="background:var(--surface2);border:1px solid ${bc};border-radius:14px;padding:24px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:0;">
+        <!-- top bar -->
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:${ac};border-radius:14px 14px 0 0;"></div>
+        <!-- icon + badge -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;margin-top:4px;">
+          <div style="font-size:30px;line-height:1;">${rf.icon}</div>
+          <span style="font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:${ac};background:rgba(0,0,0,0.3);border:1px solid ${bc};padding:3px 9px;border-radius:20px;">${badge}</span>
+        </div>
+        <!-- title -->
+        <div style="font-family:Montserrat,sans-serif;font-size:14px;font-weight:800;color:#fff;line-height:1.4;margin-bottom:10px;">${rf.title}</div>
+        <!-- desc -->
+        <p style="font-family:Montserrat,sans-serif;font-size:12px;color:#64748b;line-height:1.7;margin-bottom:14px;flex-grow:1;">${rf.desc}</p>
+        <!-- dx -->
+        <div style="font-family:Montserrat,sans-serif;font-size:11px;font-weight:700;color:${ac};background:rgba(0,0,0,0.25);border:1px solid ${bc};border-radius:8px;padding:8px 12px;margin-bottom:12px;line-height:1.5;">${rf.dx}</div>
+        <!-- cta -->
+        <div style="display:flex;align-items:center;gap:5px;font-family:Montserrat,sans-serif;font-size:10px;color:${ac};letter-spacing:1px;text-transform:uppercase;font-weight:700;">
+          <span>Ver protocolo</span><span>→</span>
+        </div>
+      </div>`;
+  }
+
+  const grid3 = 'display:grid;grid-template-columns:repeat(3,1fr);gap:18px;';
+
+  container.innerHTML = `
+    <div style="font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#ef4444;margin-bottom:16px;font-weight:700;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.5s infinite;"></span>
+      Presentaciones que Requieren Acción Inmediata
+    </div>
+    <div style="${grid3};margin-bottom:18px;">
+      ${redflagsData.slice(0,3).map((rf,i) => buildCard(rf,i)).join('')}
+    </div>
+    <div style="${grid3}">
+      ${redflagsData.slice(3).map((rf,i) => buildCard(rf,i+3)).join('')}
+    </div>
+    <style>
+      @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+      @media(max-width:900px){
+        #redflagsGrid [style*="repeat(3,1fr)"]{grid-template-columns:1fr!important;}
+      }
+    </style>
+  `;
+
+  container.querySelectorAll('.rfcard').forEach(card => {
+    const i = parseInt(card.dataset.idx);
+    const rf = redflagsData[i];
+    const { ac, bc } = meta[i] || meta[0];
+    card.addEventListener('click', () => openModal(rf.modalTitle || rf.title, 'Semiología Médica · Signos de Alarma', rf.content));
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = ac;
+      card.style.transform = 'translateY(-3px)';
+      card.style.boxShadow = '0 10px 32px ' + bc;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = bc;
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+
+// ─────────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────────
+function escStr(str) {
+  if (!str) return '';
+  return str.replace(/'/g, '&#39;').replace(/\n/g, ' ');
+}
+
+function openModal(title, badge, content) {
+  document.getElementById('modalBody').innerHTML = `
+    <h3>${title}</h3>
+    <span class="modal-badge">${badge}</span>
+    <div class="modal-body">${content}</div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay') || e.currentTarget.tagName === 'BUTTON') {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// ─────────────────────────────────────────────
+// TABS
+// ─────────────────────────────────────────────
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['home','anamnesis','inspeccion','palpacion','percusion','auscultacion','sindromes','redflags'].indexOf(id);
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  renderAnamnesis();
+  renderInspeccion();
+  renderPalpacion();
+  renderPercusion();
+  renderAuscultacion();
+  renderSyndromes();
+  renderRedflags();
+});
+
+// Keyboard close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal({currentTarget: {tagName: 'BUTTON'}});
+});
+</script>
+  <!-- REFERENCIAS -->
+  <div id="referencias" style="background:rgba(10,15,26,0.95);border-top:1px solid rgba(56,189,248,0.1);padding:18px 40px;font-family:Montserrat,sans-serif;text-align:center;">
+    <p style="font-size:10px;color:#475569;letter-spacing:0.5px;line-height:1.8;margin:0;">
+      Basado en: McGee S. <em>Evidence-based physical diagnosis.</em> 4th ed. Philadelphia: Elsevier; 2017. &nbsp;·&nbsp; Bickley LS. <em>Bates' guide to physical examination and history taking.</em> 13th ed. Philadelphia: Wolters Kluwer; 2021.
+    </p>
+  </div>
+
+  <!-- FIRMA FINAL -->
+  <div style="background:rgba(10,15,26,0.98);border-top:1px solid rgba(56,189,248,0.1);padding:28px 40px;font-family:Montserrat,sans-serif;text-align:center;">
+    <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:0.3px;">Dr. Juan David Serna Zuluaga</div>
+    <div style="font-size:11px;color:#38bdf8;font-weight:600;letter-spacing:1px;margin-top:4px;">MD, MSc</div>
+    <div style="font-size:11px;color:#64748b;margin-top:6px;line-height:1.8;">
+      Magíster en Educación y Transformación Digital<br>
+      <span style="color:#f59e0b;font-weight:500;">Coordinador · Semiología Médica · Universidad de Manizales</span>
+    </div>
+  </div>
+</body>
+</html>
